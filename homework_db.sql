@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 23, 2014 at 11:46 AM
+-- Generation Time: Nov 23, 2014 at 02:14 PM
 -- Server version: 5.5.40-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.5
 
@@ -276,10 +276,10 @@ CREATE TABLE IF NOT EXISTS `wp_postmeta` (
 INSERT INTO `wp_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`) VALUES
 (1, 2, '_wp_page_template', 'default'),
 (2, 23, '_edit_last', '1'),
-(3, 23, '_edit_lock', '1416735823:1'),
+(3, 23, '_edit_lock', '1416743669:1'),
 (4, 23, 'meta-text', '1111'),
-(5, 23, 'meta-multi-select', '2'),
-(6, 23, 'meta-add-img', ''),
+(5, 23, 'meta-multi-select', 'a:1:{i:0;s:1:"2";}'),
+(6, 23, 'meta-add-img', '82YsSFlbsp8.jpg'),
 (7, 23, 'meta_a', 'aaa'),
 (8, 23, 'meta_b', 'bbb'),
 (9, 23, 'meta_c', 'ccc');
@@ -348,7 +348,7 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 (20, 1, '2014-11-23 09:00:32', '0000-00-00 00:00:00', '', 'Auto Draft', '', 'auto-draft', 'open', 'open', '', '', '', '', '2014-11-23 09:00:32', '0000-00-00 00:00:00', '', 0, 'http://homework.local/?post_type=post-type-template&p=20', 0, 'post-type-template', '', 0),
 (21, 1, '2014-11-23 09:03:05', '0000-00-00 00:00:00', '', 'Auto Draft', '', 'auto-draft', 'open', 'open', '', '', '', '', '2014-11-23 09:03:05', '0000-00-00 00:00:00', '', 0, 'http://homework.local/?post_type=post-type-template&p=21', 0, 'post-type-template', '', 0),
 (22, 1, '2014-11-23 09:04:36', '0000-00-00 00:00:00', '', 'Auto Draft', '', 'auto-draft', 'open', 'open', '', '', '', '', '2014-11-23 09:04:36', '0000-00-00 00:00:00', '', 0, 'http://homework.local/?post_type=post-type-template&p=22', 0, 'post-type-template', '', 0),
-(23, 1, '2014-11-23 09:07:26', '2014-11-23 09:07:26', 'sssssssssssssssdgfgjh,kl.l;ll.kjfhggxfgbfdth', 'dddddd', 'fdfgdf', 'publish', 'closed', 'closed', '', 'dddddd', '', '', '2014-11-23 09:24:16', '2014-11-23 09:24:16', '', 0, 'http://homework.local/?post_type=post-type-template&#038;p=23', 0, 'post-type-template', '', 0);
+(23, 1, '2014-11-23 09:07:26', '2014-11-23 09:07:26', 'sssssssssssssssdgfgjh,kl.l;ll.kjfhggxfgbfdth', 'dddddd', 'fdfgdf', 'publish', 'closed', 'closed', '', 'dddddd', '', '', '2014-11-23 11:54:29', '2014-11-23 11:54:29', '', 0, 'http://homework.local/?post_type=post-type-template&#038;p=23', 0, 'post-type-template', '', 0);
 
 -- --------------------------------------------------------
 
