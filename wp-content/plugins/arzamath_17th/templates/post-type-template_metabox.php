@@ -13,7 +13,7 @@
         </th>
         <td>
 <!--            <input type="text" id="meta-multi-select" name="meta-multi-select" value="--><?php //echo @get_post_meta($post->ID, 'meta-multi-select', true); ?><!--" />-->
-            <select id="meta-multi-select" name="meta-multi-select" multiple <?php echo @get_post_meta($post->ID, 'meta-multi-select', false); ?>>
+            <select id="meta-multi-select" name="meta-multi-select[]" multiple >
                 <option value="1">Один</option>
                 <option value="2">Два</option>
                 <option value="3">Три</option>
@@ -27,7 +27,8 @@
             <label for="meta-add-img">Add_img</label>
         </th>
         <td>
-            <input type="file" id="meta-add-img" name="meta-add-img" value="<?php echo @get_post_meta($post->ID, 'meta-add-img', true); ?>" />
+            <input type="file" id="meta-add-img" name="meta-add-img" accept="image/*" value="<?php echo @get_post_meta($post->ID, 'meta-add-img', true); ?>" />
+<!--            <img src="--><?php //echo @get_post_meta($post->ID, 'meta-add-img', true); ?><!--" width="200" height="200"/>-->
         </td>
     </tr>                
 </table>
