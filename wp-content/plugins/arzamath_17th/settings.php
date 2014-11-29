@@ -11,6 +11,15 @@ if(!class_exists('WP_Plugin_Template_Settings'))
             // register actions
             add_action('admin_init', array(&$this, 'admin_init'));
             add_action('admin_menu', array(&$this, 'add_menu'));
+                /**
+                 * add_action - Заставляет указанную PHP функцию сработать в определенное событие
+                 *
+                 *      'admin_init' -- Название действия, к которому будем цеплять функцию.
+                 *
+                 *       array(&$this, 'admin_init') -- Название функции, которая должна быть вызвана во время
+                 *                                  срабатывания действия, т.е. функция которую цепляем к хуку
+                 */
+
         } // END public function __construct
 
         /**
@@ -21,6 +30,15 @@ if(!class_exists('WP_Plugin_Template_Settings'))
             // register your plugin's settings
             register_setting('wp_plugin_template-group', 'setting_text');
             register_setting('wp_plugin_template-group', 'setting_select');
+                /**
+                 * register_setting --Регистрирует новую опцию и callback функцию (функцию обратного вызова)
+                 *                    для обработки значения опции при её сохранении в БД.
+                 *
+                 *      'wp_plugin_template-group' --Название группы, к которой будет принадлежать опция.
+                 *                                  Это название должно совпадать с названием группы в функции
+                 *                                  settings_fields().
+                 *      'setting_text' -- Название опции, которая будет сохраняться в БД.
+                 */
 
             // add your settings section
             add_settings_section(
@@ -29,6 +47,18 @@ if(!class_exists('WP_Plugin_Template_Settings'))
                 array(&$this, 'settings_section_wp_plugin_template'),
                 'wp_plugin_template'
             );
+            /**
+             * add_settings_section -Создает новый блок (секцию), в котором выводятся опции (настройки).
+             * add_settings_section( $id, $title, $callback, $page );
+             *      $id --Идентификатор секции, по которому нужно "цеплять" поля к секции.
+             *            Строка, которая будет использована для id атрибутов тегов.
+             *       $title -- Заголовок секции.
+             *       $callback -- Callback функция, которая заполняет секцию нужным описание. Функция вызывается
+             *                    сразу перед выводом полей в секции.
+             *       $page -- Страница на которой выводить секцию. Должен совпадать с параметром $menu_slug из
+             *                  add_menu_page(), add_theme_page(), add_submenu_page().
+             */
+
 
             // add your setting's fields
             add_settings_field(
@@ -41,6 +71,25 @@ if(!class_exists('WP_Plugin_Template_Settings'))
                     'field' => 'setting_text'
                 )
             );
+            /**
+             * add_settings_field -- Создает поле опции для указанной страницы и указанного блока (секции).
+             * add_settings_field( $id, $title, $callback, $page, $section, $args );
+             *      $id -- Название опции (идентификатор). Используйте в id атрибуте тега.
+             *      $title -- Заголовок поля.
+             *      $callback -- Название функции обратного вызова. Функция должна заполнять поле нужным <input> тегом,
+             *                  который станет частью одной большой формы. Атрибут name должен быть равен параметру
+             *                  $option_name из register_setting(). Атрибут id обычно равен параметру $id.
+             *                  Результат должен сразу выводиться на экран (echo).
+             *      $page --Страница меню в которую будет добавлено поле. Указывать нужно sug страницы, т.е. параметр
+             *              должен быть равен параметру $menu_slug из add_theme_page(). У базовых страниц WordPress
+             *              названия равны: general, reading, writing и т.д. по аналогии...
+             *      $section -- название секции страницы настроек, в которую должно быть добавлено поле. По умолчанию
+             *                  default или может быть секцией добавленной функцией add_settings_section().
+             *      $args -- Параметры, которые нужно передать callback функции. Например, в паре key/value мы можем
+             *               передать параметр $id, который затем использовать для атрибута id поля input, чтобы по
+             *               нажатию на label в итоговом выводе, фокус курсора попадал в наше поле.
+             */
+
             add_settings_field(
                 'wp_plugin_template-setting_select',
                 'Setting SELECT',
@@ -69,6 +118,11 @@ if(!class_exists('WP_Plugin_Template_Settings'))
             $field = $args['field'];
             // Get the value of this setting
             $value = get_option($field);
+            /**
+             * get_option( $option, $default) - Получает значение указанной настройки (опции).
+             *      $option --  Название опции, значение которой нужно получить.
+             *      $default -- Значение по умолчанию, которое нужно вернуть, если не удалось получить опцию
+             */
             // echo a proper input type="text"
             echo sprintf('<input type="text" name="%s" id="%s" value="%s" />', $field, $field, $value);
         } // END public function settings_field_input_text($args)
@@ -79,7 +133,7 @@ if(!class_exists('WP_Plugin_Template_Settings'))
         public function settings_field_input_select($args)
         {
             // Get the field name from the $args array
-            $field = $args['field'];
+            $field = $args['select'];
             // Get the value of this setting
             $value = get_option($field);
             // echo a proper input type="text"
@@ -105,6 +159,27 @@ if(!class_exists('WP_Plugin_Template_Settings'))
                 'wp_plugin_template',
                 array(&$this, 'plugin_settings_page')
             );
+            /**
+             * add_options_page -  Добавляет дочернюю страницу (подменю) в меню админ-панели "Параметры" (Settings).
+             *                       Функцию нужно вызывать во время события admin_menu
+             * add_options_page( $page_title, $menu_title, $capability, $menu_slug, $function );
+             *       $page_title (строка) (обязательный)
+             *               Текст, который будет использован в теге title на странице, настроек.
+             *       $menu_title (строка) (обязательный)
+             *               Текст, который будет использован в качестве называния для пункта меню.
+             *        $capability (строка) (обязательный)
+             *                 Название права доступа для пользователя, чтобы ему был показан этот пункт меню. Таблицу
+             *                 возможностей смотрите здесь. Этот параметр отвечает и за доступ к странице этого пункта
+             *                  меню.
+             *       $menu_slug (строка) (обязательный)
+             *                    Идентификатор меню. Нужно вписывать уникальную строку, пробелы не допускаются.Можно,
+             *                  также указать путь от папки плагина до файла, который будет отвечать за страницу
+             *                   настроек плагина, пр. my-plugin/options.php. В этом случае, следующий параметр
+             *                  указывать не обязательно.
+             *       $function (строка)
+             *                   Название функции, которая отвечает за код страницы этого пункта меню.
+             *                    По умолчанию: ''
+             */
         } // END public function add_menu()
 
         /**
