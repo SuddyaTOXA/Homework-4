@@ -28,8 +28,7 @@ if(!class_exists('WP_Plugin_Template_Settings'))
         public function admin_init()
         {
             // register your plugin's settings
-            register_setting('wp_plugin_template-group', 'setting_text');
-            register_setting('wp_plugin_template-group', 'setting_select');
+            register_setting('wp_plugin_template-group', 'wp_plugin_setting');
                 /**
                  * register_setting --Регистрирует новую опцию и callback функцию (функцию обратного вызова)
                  *                    для обработки значения опции при её сохранении в БД.
@@ -112,38 +111,40 @@ if(!class_exists('WP_Plugin_Template_Settings'))
         /**
          * This function provides text inputs for settings fields
          */
-        public function settings_field_input_text($args)
+        public function settings_field_input_text()
         {
             // Get the field name from the $args array
-            $field = $args['field'];
             // Get the value of this setting
-            $value = get_option($field);
+            $options = get_option('wp_plugin_setting');
             /**
              * get_option( $option, $default) - Получает значение указанной настройки (опции).
              *      $option --  Название опции, значение которой нужно получить.
              *      $default -- Значение по умолчанию, которое нужно вернуть, если не удалось получить опцию
              */
             // echo a proper input type="text"
-            echo sprintf('<input type="text" name="%s" id="%s" value="%s" />', $field, $field, $value);
+            ?>
+            <input type="text" name='wp_plugin_setting[settings_field_input_text]' id="%s" value='<?php echo $options['settings_field_input_text'] ?>' >
+            <?php
         } // END public function settings_field_input_text($args)
 
         /**
          * This function provides select for settings fields
          */
-        public function settings_field_input_select($args)
+        public function settings_field_input_select()
         {
             // Get the field name from the $args array
-            $field = $args['select'];
             // Get the value of this setting
-            $value = get_option($field);
+            $options = get_option('wp_plugin_setting');
             // echo a proper input type="text"
-            echo sprintf('<select name="%s" id="%s" >
-                            <option value="1">Значення 1</option>
-                            <option value="2">Значення 2</option>
-                            <option value="3">Значення 3</option>
-                            <option value="4">Значення 4</option>
-                            <option value="5">Значення 5</option>
-                          </select>', $field, $field, $value);
+        ?>
+            <select name='wp_plugin_setting[settings_field_input_select]'>
+                <option value='1' <?php selected( $options['settings_field_input_select'], 1 ); ?>>Option 1</option>
+                <option value='2' <?php selected( $options['settings_field_input_select'], 2 ); ?>>Option 2</option>
+                <option value='3' <?php selected( $options['settings_field_input_select'], 3 ); ?>>Option 3</option>
+                <option value='4' <?php selected( $options['settings_field_input_select'], 4 ); ?>>Option 4</option>
+                <option value='5' <?php selected( $options['settings_field_input_select'], 5 ); ?>>Option 5</option>
+            </select>
+        <?php
         } // END public function settings_field_input_text($args)
 
         /**
