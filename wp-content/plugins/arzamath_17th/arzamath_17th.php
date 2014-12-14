@@ -35,18 +35,6 @@ if(!class_exists('WP_Plugin_Template')) //перевірка чи був ого�
         {
             // Initialize Settings
             require_once(sprintf("%s/settings.php", dirname(__FILE__)));
-            /**
-             *require_once - конструкция однократных включений
-             *
-             * sprintf -- Возвращает отформатированную строку
-             *       % - символ процента. Аргумент не используется.
-             *       s - аргумент трактуется как строка.
-             *
-             * dirname -- Возвращает имя каталога из указанного пути
-             *
-             * __FILE__ --Полный путь и имя текущего файла. Если используется внутри подключаемого файла,
-             *            то возвращается имя данного файла.
-             */
             $WP_Plugin_Template_Settings = new WP_Plugin_Template_Settings();
 
             // Register custom post types
@@ -55,12 +43,7 @@ if(!class_exists('WP_Plugin_Template')) //перевірка чи був ого�
 
             $plugin = plugin_basename(__FILE__);
             add_filter("plugin_action_links_$plugin", array( $this, 'plugin_settings_link' ));
-            /**
-             * "plugin_action_links_$plugin" -- Название фильтра
-             *
-             * array( $this, 'plugin_settings_link') -- Название функции. Для функций внутри классов
-             *          указываем массив: array('название_класса', 'название_функции')
-             */
+
         } // END public function __construct
 
         /**
@@ -85,11 +68,6 @@ if(!class_exists('WP_Plugin_Template')) //перевірка чи був ого�
             $settings_link = '<a href="options-general.php?page=wp_plugin_template">Settings</a>';
             array_unshift($links, $settings_link);
             return $links;
-            /**
-             * записує ссилку в змінну $settings_link
-             *
-             *  array_unshift($links, $settings_link); - записує значення змінної $settings_link в масив $links
-             */
         }
 
 
@@ -102,13 +80,7 @@ if(class_exists('WP_Plugin_Template'))
     register_activation_hook(__FILE__, array('WP_Plugin_Template', 'activate'));
     register_deactivation_hook(__FILE__, array('WP_Plugin_Template', 'deactivate'));
 
-    /**
-     * register_activation_hook -- регистрирует функцию, которая будет срабатывать во время активации плагина
-     *      __FILE__ -- путь до PHP файла
-     *
-     *       array('WP_Plugin_Template', 'activate') -- Название функции обратного вызова.
-     *                                             Для классов используйте массив: array( $this, 'название_функции' )
-     */
+
 
     // instantiate the plugin class
     $wp_plugin_template = new WP_Plugin_Template();
